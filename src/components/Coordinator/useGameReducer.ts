@@ -1,5 +1,7 @@
 import { Reducer, useCallback, useReducer } from "react";
 
+import { getHpAfterDamage } from '../../Demo.bs';
+
 type Actor = {
   hp: number;
   maxHp: number;
@@ -36,7 +38,7 @@ const gameReducer: Reducer<State, Actions> = (state, action) => {
       return {
         ...state,
         turn: "ENEMY",
-        enemy: { ...enemy, hp: Math.max(enemy.hp - action.damage, 0) },
+        enemy: { ...enemy, hp: Math.max(getHpAfterDamage(enemy.hp, action.damage), 0) },
       };
     }
     case "ENEMY_ATTACK": {
@@ -44,7 +46,7 @@ const gameReducer: Reducer<State, Actions> = (state, action) => {
       return {
         ...state,
         turn: "PLAYER",
-        player: { ...player, hp: Math.max(player.hp - action.damage, 0) },
+        player: { ...player, hp: Math.max(getHpAfterDamage(player.hp, action.damage), 0)},
       };
     }
     default:

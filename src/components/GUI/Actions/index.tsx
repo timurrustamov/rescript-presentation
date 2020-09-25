@@ -8,6 +8,7 @@ import { Attack } from "../../Coordinator/useGameReducer";
 import Typography from "../../Typography";
 import Action from "./Action";
 import AttackTag from "./Action/ActionTag";
+import { getNextCursorPosition } from "../../../Demo.bs";
 
 export type ActionsProps = {
   className?: string;
@@ -52,6 +53,7 @@ const Actions: FunctionComponent<ActionsProps> = (props) => {
 
   const [state, actions] = useCoordinator();
   const isSelected = (index: number) => index === selectedIndex % 4;
+  const normalizeCurrentIndex = (type: number) => (i: number) => getNextCursorPosition(Math.abs(i), type);
 
   useKeydown(["Space"], () => {
     const attack = attacks[selectedIndex % 4];
@@ -63,12 +65,13 @@ const Actions: FunctionComponent<ActionsProps> = (props) => {
   useKeydown(["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"], (code) => {
     switch (code) {
       case "ArrowUp":
-      case "ArrowDown":
-        return setSelectedIndex((i) => i + 2);
-      case "ArrowLeft":
-        return setSelectedIndex((i) => i - 1 + 4);
+        return setSelectedIndex(normalizeCurrentIndex(0));
       case "ArrowRight":
-        return setSelectedIndex((i) => i + 1);
+        return setSelectedIndex(normalizeCurrentIndex(1));
+      case "ArrowDown":
+        return setSelectedIndex(normalizeCurrentIndex(2));
+      case "ArrowLeft":
+        return setSelectedIndex(normalizeCurrentIndex(3));
       default:
         return;
     }
