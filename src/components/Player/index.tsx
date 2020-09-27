@@ -1,16 +1,15 @@
-import React, { CSSProperties, FunctionComponent } from "react";
-import styled from "styled-components";
+import React, { CSSProperties, FunctionComponent } from 'react';
 
-import HealthBar from "./HealthBar";
-import Pokemon from "../Pokemon";
-import PokemonName from "../PokemonName";
-import { useSelector } from "react-redux";
+import styled from 'styled-components';
+import Pikachu from 'pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/back/25.gif';
+import { useSelector } from 'react-redux';
 
-import HealthCount from "./HealthCount";
-import { State } from "../Game/store";
-import { playerLevel } from "../../Demo.bs";
-
-import Pikachu from "pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/back/25.gif";
+import HealthBar from './HealthBar';
+import Pokemon from '../Pokemon';
+import PokemonName from '../PokemonName';
+import HealthCount from './HealthCount';
+import { State } from '../Game/store';
+import { playerLevel } from '../../Demo.bs';
 
 export type PlayerProps = {
   className?: string;

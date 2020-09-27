@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from "react";
-import styled from "styled-components";
+import React, { FunctionComponent } from 'react';
+
+import styled from 'styled-components';
 
 import background from '../assets/images/background.png';
 
@@ -34,7 +35,7 @@ const Background: FunctionComponent = (props) => {
       <BackgroundImage src={background} />
       {children}
     </Wallpaper>
-  )
-}
+  );
+};
 
 export default Background;

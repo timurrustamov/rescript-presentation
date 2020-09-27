@@ -1,9 +1,6 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-const useKeydown = (
-  codes: string[] = [],
-  callback?: (code: string) => void
-) => {
+const useKeydown = (codes: string[] = [], callback?: (code: string) => void): void => {
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
       if (codes.includes(event.code)) {
@@ -11,8 +8,8 @@ const useKeydown = (
       }
     };
 
-    window.addEventListener("keydown", listener);
-    return () => window.removeEventListener("keydown", listener);
+    window.addEventListener('keydown', listener);
+    return () => window.removeEventListener('keydown', listener);
   }, [...codes, callback]);
 };
 

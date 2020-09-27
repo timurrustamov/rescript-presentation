@@ -1,6 +1,6 @@
-import PressStart2P from '../assets/fonts/PressStart2P.ttf';
-
 import { createGlobalStyle } from 'styled-components';
+
+import PressStart2P from '../assets/fonts/PressStart2P.ttf';
 
 const Fonts = createGlobalStyle`
   @font-face {

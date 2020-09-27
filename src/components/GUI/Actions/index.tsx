@@ -1,15 +1,15 @@
-import React, { CSSProperties, FunctionComponent, useState } from "react";
+import React, { CSSProperties, FunctionComponent, useState } from 'react';
 
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
-import useKeydown from "../../../hooks/useKeyDown";
-import Typography from "../../Typography";
-import Action from "./Action";
-import AttackTag from "./Action/ActionTag";
-import { getNextCursorPosition } from "../../../Demo.bs";
-import { State } from "../../Game/store";
-import { Attack, playerAttack } from "../../Game/attacks";
+import useKeydown from '../../../hooks/useKeydown';
+import Typography from '../../Typography';
+import Action from './Action';
+import AttackTag from './Action/ActionTag';
+import { getNextCursorPosition } from '../../../Demo.bs';
+import { State } from '../../Game/store';
+import { Attack, playerAttack } from '../../Game/attacks';
 
 export type ActionsProps = {
   className?: string;
@@ -26,31 +26,31 @@ const Container = styled.div`
 
 const attacks: Readonly<Attack[]> = [
   {
-    name: "Double Team",
+    name: 'Double Team',
     damage: 65,
-    type: "Normal",
+    type: 'Normal',
   },
   {
-    name: "Thunder Wave",
+    name: 'Thunder Wave',
     damage: 100,
-    type: "Electric",
+    type: 'Electric',
   },
   {
-    name: "Light Screen",
+    name: 'Light Screen',
     damage: 95,
-    type: "Psychic",
+    type: 'Psychic',
   },
   {
-    name: "Thunderbold",
+    name: 'Thunderbold',
     damage: 70,
-    type: "Electric",
+    type: 'Electric',
   },
 ] as const;
 
 const Actions: FunctionComponent<ActionsProps> = (props) => {
   const { className, style } = props;
 
-  const isPlayerTurn = useSelector((state: State) => state.turn === "PLAYER");
+  const isPlayerTurn = useSelector((state: State) => state.turn === 'PLAYER');
   const dispatch = useDispatch();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -60,22 +60,22 @@ const Actions: FunctionComponent<ActionsProps> = (props) => {
     return getNextCursorPosition?.(Math.abs(i) + 4, type) || 0;
   };
 
-  useKeydown(["Space"], () => {
+  useKeydown(['Space'], () => {
     const attack = attacks[selectedIndex % 4];
     if (isPlayerTurn && attack) {
       dispatch(playerAttack(attack));
     }
   });
 
-  useKeydown(["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"], (code) => {
+  useKeydown(['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'], (code) => {
     switch (code) {
-      case "ArrowUp":
+      case 'ArrowUp':
         return setSelectedIndex(normalizeCurrentIndex(0));
-      case "ArrowRight":
+      case 'ArrowRight':
         return setSelectedIndex(normalizeCurrentIndex(1));
-      case "ArrowDown":
+      case 'ArrowDown':
         return setSelectedIndex(normalizeCurrentIndex(2));
-      case "ArrowLeft":
+      case 'ArrowLeft':
         return setSelectedIndex(normalizeCurrentIndex(3));
       default:
         return;

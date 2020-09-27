@@ -1,9 +1,9 @@
-import React, { CSSProperties, FunctionComponent, useMemo } from "react";
+import React, { CSSProperties, FunctionComponent, useMemo } from 'react';
 
-import styled from "styled-components";
-import { Attack } from "../../../Coordinator/useGameReducer";
+import styled from 'styled-components';
 
-import Typography from "../../../Typography";
+import { Attack } from '../../../Game/attacks';
+import Typography from '../../../Typography';
 
 const Tag = styled.div`
   display: flex;
@@ -56,9 +56,9 @@ const ActionTag: FunctionComponent<ActionTagProps> = (props) => {
 
   const Component = useMemo(() => {
     switch (type) {
-      case "Electric":
+      case 'Electric':
         return Electric;
-      case "Psychic":
+      case 'Psychic':
         return Psychic;
       default:
         return Normal;

@@ -1,6 +1,8 @@
-import { CSSProperties } from "react";
-import styled, { css, keyframes } from "styled-components";
-import Typography from "../../../Typography";
+import { CSSProperties } from 'react';
+
+import styled, { css, keyframes } from 'styled-components';
+
+import Typography from '../../../Typography';
 
 export type ActionProps = {
   selected?: boolean;

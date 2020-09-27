@@ -1,8 +1,8 @@
-import React, { CSSProperties, FunctionComponent } from "react";
+import React, { CSSProperties, FunctionComponent } from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import Typography from "./Typography";
+import Typography from './Typography';
 
 export type PokemonNameProps = {
   name?: string;

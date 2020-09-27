@@ -1,8 +1,8 @@
-import React, { CSSProperties, FunctionComponent } from "react";
+import React, { CSSProperties, FunctionComponent } from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import HP from "../HP";
+import HP from '../HP';
 
 export type HealthBarProps = {
   name?: string;

@@ -1,17 +1,18 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { Provider, useDispatch, useSelector } from "react-redux";
-import useKeydown from "../../hooks/useKeyDown";
-import store, { hideMessage, State } from "./store";
+import { Provider, useDispatch, useSelector } from 'react-redux';
+
+import useKeydown from '../../hooks/useKeydown';
+import store, { hideMessage, State } from './store';
 
 const SideEffects: FunctionComponent = () => {
   const [play, setPlay] = useState(false);
 
   const dispatch = useDispatch();
-  const isPlayerTurn = useSelector((state: State) => state.turn === "PLAYER");
+  const isPlayerTurn = useSelector((state: State) => state.turn === 'PLAYER');
   const hasMessage = useSelector((state: State) => !!state.message);
 
-  useKeydown(["Space"], () => {
+  useKeydown(['Space'], () => {
     setPlay(true);
     if (isPlayerTurn) {
       dispatch(hideMessage());

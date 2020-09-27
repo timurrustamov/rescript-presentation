@@ -1,8 +1,9 @@
-import React, { CSSProperties, FunctionComponent, useMemo } from "react";
+import React, { CSSProperties, FunctionComponent, useMemo } from 'react';
 
-import { animated, useSpring } from "react-spring";
-import styled from "styled-components";
-import Typography from "./Typography";
+import { animated, useSpring } from 'react-spring';
+import styled from 'styled-components';
+
+import Typography from './Typography';
 
 export type HPProps = {
   max?: number;
@@ -14,7 +15,7 @@ export type HPProps = {
 const Text = styled(Typography)`
   color: green;
   font-size: 16px;
-  text-shadow: 0px 2px 2px rgba(0,0,0,2);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 2);
   margin-right: 12px;
 `;
 
@@ -22,7 +23,7 @@ const StyledBar = styled(animated.div)`
   width: 80%;
   height: 14px;
   border-radius: 6px;
-  box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.45);
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.45);
 `;
 
 const StyledBarWrapper = styled.div`
@@ -62,7 +63,7 @@ const HP: FunctionComponent<HPProps> = (props) => {
             width: health.interpolate((hp) => `${hp * 100}%`),
             backgroundColor: health.interpolate({
               range: [0, 0.25, 0.5, 1],
-              output: ["red", "red", "yellow", "green"],
+              output: ['red', 'red', 'yellow', 'green'],
             }),
           }}
         />

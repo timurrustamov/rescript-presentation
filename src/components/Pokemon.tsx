@@ -1,13 +1,7 @@
-import React, {
-  CSSProperties,
-  FunctionComponent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { animated, useSpring } from "react-spring";
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 
-import styled from "styled-components";
+import { animated, useSpring } from 'react-spring';
+import styled from 'styled-components';
 
 export type PokemonProps = {
   hp?: number;
@@ -40,7 +34,7 @@ const Pokemon: FunctionComponent<PokemonProps> = (props) => {
   const { x } = useSpring({
     from: { x: 0 },
     x: state ? 1 : 0,
-    config: { mass: 3, tension: 200 }
+    config: { mass: 3, tension: 200 },
   });
 
   return (
@@ -53,15 +47,13 @@ const Pokemon: FunctionComponent<PokemonProps> = (props) => {
             range: [0, 0.25, 0.5, 0.75, 1],
             output: [0, 1, 0, 1, 0],
           })
-          .interpolate(
-            (x) => `translateX(${x * 25}%)`
-          ),
-        filter: x.interpolate({
-          range: [0, 0.5, 1],
-          output: [1, 10, 1],
-        }).interpolate(
-          (x) => `saturate(${x})`
-        )
+          .interpolate((x) => `translateX(${x * 25}%)`),
+        filter: x
+          .interpolate({
+            range: [0, 0.5, 1],
+            output: [1, 10, 1],
+          })
+          .interpolate((x) => `saturate(${x})`),
       }}
     />
   );

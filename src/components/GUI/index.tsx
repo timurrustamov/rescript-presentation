@@ -1,11 +1,11 @@
-import React, { CSSProperties, FunctionComponent } from "react";
+import React, { CSSProperties, FunctionComponent } from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
-import Message from "./Message";
-import Actions from "./Actions";
-import { useSelector } from "react-redux";
-import { State } from "../Game/store";
+import Message from './Message';
+import Actions from './Actions';
+import { State } from '../Game/store';
 
 export type GUIProps = {
   className?: string;

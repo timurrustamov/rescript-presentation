@@ -1,35 +1,34 @@
-import { configureStore, createAction, createReducer } from "@reduxjs/toolkit";
+import { configureStore, createAction, createReducer } from '@reduxjs/toolkit';
 
-import { playerName, getInitialBattleMessage } from "../../Demo.bs";
+import { playerName, getInitialBattleMessage } from '../../Demo.bs';
 
 type Actor = {
   hp: number;
   maxHp: number;
   name: string;
-  type: "Electric" | "Water" | "Psychic" | "Normal";
+  type: 'Electric' | 'Water' | 'Psychic' | 'Normal';
 };
 
 export type State = {
   player: Actor;
   enemy: Actor;
   message?: string;
-  turn: "PLAYER" | "ENEMY";
+  turn: 'PLAYER' | 'ENEMY';
 };
 
-const initialMessage =
-  getInitialBattleMessage?.("Abra", Math.random() > 0.5) || "Hello rescript !";
+const initialMessage = getInitialBattleMessage?.('Abra', Math.random() > 0.5) || 'Hello rescript !';
 
 const initialState: State = {
-  enemy: { hp: 360, maxHp: 360, name: "Abra", type: "Water" },
-  player: { hp: 290, maxHp: 290, name: playerName || "", type: "Electric" },
-  turn: "PLAYER",
+  enemy: { hp: 360, maxHp: 360, name: 'Abra', type: 'Water' },
+  player: { hp: 290, maxHp: 290, name: playerName || '', type: 'Electric' },
+  turn: 'PLAYER',
   message: initialMessage,
 };
 
-export const showMessage = createAction<string>("SHOW_MESSAGE");
-export const hideMessage = createAction("HIDE_MESSAGE");
-export const playerTakeDamage = createAction<number>("PLAYER_TAKE_DAMAGE");
-export const enemyTakeDamage = createAction<number>("ENEMY_TAKE_DAMAGE");
+export const showMessage = createAction<string>('SHOW_MESSAGE');
+export const hideMessage = createAction('HIDE_MESSAGE');
+export const playerTakeDamage = createAction<number>('PLAYER_TAKE_DAMAGE');
+export const enemyTakeDamage = createAction<number>('ENEMY_TAKE_DAMAGE');
 
 const reducer = createReducer(initialState, (builder) => {
   const getActorAfterDamage = (actor: Actor, damage = 0) => {
@@ -49,14 +48,14 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(playerTakeDamage, (state, action) => {
       return {
         ...state,
-        turn: "PLAYER",
+        turn: 'PLAYER',
         player: getActorAfterDamage(state.player, action.payload),
       };
     })
     .addCase(enemyTakeDamage, (state, action) => {
       return {
         ...state,
-        turn: "ENEMY",
+        turn: 'ENEMY',
         enemy: getActorAfterDamage(state.enemy, action.payload),
       };
     });

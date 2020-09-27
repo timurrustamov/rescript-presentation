@@ -1,9 +1,9 @@
-import React, { CSSProperties, FunctionComponent } from "react";
+import React, { CSSProperties, FunctionComponent } from 'react';
 
-import { animated, useSpring } from "react-spring";
-import styled from "styled-components";
+import { animated, useSpring } from 'react-spring';
+import styled from 'styled-components';
 
-import Typography from "../Typography";
+import Typography from '../Typography';
 
 export type HealthCountProps = {
   maxHp?: number;
@@ -38,7 +38,7 @@ const Text = styled(Typography)`
 `;
 
 const HealthCount: FunctionComponent<HealthCountProps> = (props) => {
-  const { maxHp, hp, className, style } = props;
+  const { maxHp, hp = 0, className, style } = props;
   const { animatedHp } = useSpring({
     animatedHp: hp,
     config: { clamp: true, precision: 1 },
@@ -48,10 +48,7 @@ const HealthCount: FunctionComponent<HealthCountProps> = (props) => {
     <Container className={className} style={style}>
       <Background />
       <Text>
-        <animated.span>
-          {animatedHp.interpolate((hp) => hp!.toFixed())}
-        </animated.span>
-        /{maxHp}
+        <animated.span>{animatedHp.interpolate((hp) => hp.toFixed())}</animated.span>/{maxHp}
       </Text>
     </Container>
   );
