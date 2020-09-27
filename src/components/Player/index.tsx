@@ -4,15 +4,15 @@ import styled from "styled-components";
 import HealthBar from "./HealthBar";
 import Pokemon from "../Pokemon";
 import PokemonName from "../PokemonName";
+import { useSelector } from "react-redux";
+
+import HealthCount from "./HealthCount";
+import { State } from "../Game/store";
+import { playerLevel } from "../../Demo.bs";
 
 import Pikachu from "pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/back/25.gif";
-import HealthCount from "./HealthCount";
 
 export type PlayerProps = {
-  name?: string;
-  hp?: number;
-  maxHp?: number;
-  lvl?: number;
   className?: string;
   style?: CSSProperties;
 };
@@ -30,14 +30,15 @@ const BarContainer = styled.div`
 `;
 
 const Player: FunctionComponent<PlayerProps> = (props) => {
-  const { name, hp, maxHp, lvl, className, style } = props;
+  const { className, style } = props;
+  const { name, hp, maxHp } = useSelector((state: State) => state.player);
 
   return (
     <Wrapper className={className} style={style}>
       <Pokemon hp={hp} src={Pikachu} />
 
       <BarContainer>
-        <PokemonName name={name} lvl={lvl} />
+        <PokemonName name={name} lvl={playerLevel} />
         <HealthBar hp={hp} maxHp={maxHp} />
         <HealthCount hp={hp} maxHp={maxHp} />
       </BarContainer>

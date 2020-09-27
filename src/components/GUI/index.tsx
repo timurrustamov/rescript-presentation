@@ -2,9 +2,10 @@ import React, { CSSProperties, FunctionComponent } from "react";
 
 import styled from "styled-components";
 
-import useCoordinator from "../Coordinator/useCoordinator";
 import Message from "./Message";
 import Actions from "./Actions";
+import { useSelector } from "react-redux";
+import { State } from "../Game/store";
 
 export type GUIProps = {
   className?: string;
@@ -29,8 +30,7 @@ const Controls = styled.div`
 const GUI: FunctionComponent<GUIProps> = (props) => {
   const { className, style } = props;
 
-  const [state] = useCoordinator();
-  const { message } = state;
+  const message = useSelector((state: State) => state.message);
 
   if (message) {
     return (

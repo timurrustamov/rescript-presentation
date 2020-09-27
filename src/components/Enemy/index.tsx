@@ -1,19 +1,16 @@
 import React, { CSSProperties, FunctionComponent, useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import Abra from "pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/63.gif";
 
 import Pokemon from "../Pokemon";
 import HealthBar from "./HealthBar";
 
-import Abra from "pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/63.gif";
 import PokemonName from "../PokemonName";
-import useCoordinator from "../Coordinator/useCoordinator";
-import { Attack } from "../Coordinator/useGameReducer";
+import { State } from "../Game/store";
+import { Attack, enemyAttack } from "../Game/attacks";
 
 export type EnemyProps = {
-  name?: string;
-  hp?: number;
-  maxHp?: number;
-  lvl?: number;
   className?: string;
   style?: CSSProperties;
 };
@@ -49,22 +46,25 @@ const attacks: Readonly<Attack[]> = [
 ];
 
 const Enemy: FunctionComponent<EnemyProps> = (props) => {
-  const { name, hp, maxHp, lvl, className, style } = props;
-  const [state, actions] = useCoordinator();
+  const { className, style } = props;
+
+  const { name, hp, maxHp } = useSelector((state: State) => state.enemy);
+  const isEnemyTurn = useSelector((state: State) => state.turn === "ENEMY");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (state.turn === 'ENEMY') {
+    if (isEnemyTurn) {
       const attack = attacks[Math.floor(Math.random() * attacks.length)];
 
-      const timeout = setTimeout(() => actions.enemyAttack(attack), 3000);
+      const timeout = setTimeout(() => dispatch(enemyAttack(attack)), 3000);
       return () => clearTimeout(timeout);
     }
-  }, [state.turn]);
+  }, [isEnemyTurn]);
 
   return (
     <Wrapper className={className} style={style}>
       <BarContainer>
-        <PokemonName name={name} lvl={lvl} />
+        <PokemonName name={name} lvl={36} />
         <HealthBar hp={hp} maxHp={maxHp} />
       </BarContainer>
 

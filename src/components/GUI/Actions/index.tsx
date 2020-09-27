@@ -1,14 +1,15 @@
 import React, { CSSProperties, FunctionComponent, useState } from "react";
 
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 import useKeydown from "../../../hooks/useKeyDown";
-import useCoordinator from "../../Coordinator/useCoordinator";
-import { Attack } from "../../Coordinator/useGameReducer";
 import Typography from "../../Typography";
 import Action from "./Action";
 import AttackTag from "./Action/ActionTag";
 import { getNextCursorPosition } from "../../../Demo.bs";
+import { State } from "../../Game/store";
+import { Attack, playerAttack } from "../../Game/attacks";
 
 export type ActionsProps = {
   className?: string;
@@ -49,16 +50,20 @@ const attacks: Readonly<Attack[]> = [
 const Actions: FunctionComponent<ActionsProps> = (props) => {
   const { className, style } = props;
 
+  const isPlayerTurn = useSelector((state: State) => state.turn === "PLAYER");
+  const dispatch = useDispatch();
+
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const [state, actions] = useCoordinator();
   const isSelected = (index: number) => index === selectedIndex % 4;
-  const normalizeCurrentIndex = (type: number) => (i: number) => getNextCursorPosition(Math.abs(i), type);
+  const normalizeCurrentIndex = (type: number) => (i: number) => {
+    return getNextCursorPosition?.(Math.abs(i) + 4, type) || 0;
+  };
 
   useKeydown(["Space"], () => {
     const attack = attacks[selectedIndex % 4];
-    if (state.turn === "PLAYER" && attack) {
-      actions.playerAttack(attack);
+    if (isPlayerTurn && attack) {
+      dispatch(playerAttack(attack));
     }
   });
 

@@ -9,10 +9,8 @@ import Enemy from "./Enemy";
 import Background from "./Background";
 import Player from "./Player";
 import GUI from "./GUI";
-import Coordinator from "./Coordinator";
-import useCoordinator from "./Coordinator/useCoordinator";
 
-import { playerName, playerLevel, getInitialBattleMessage } from "../Demo.bs";
+import Game from "./Game";
 
 const Battleground = styled.div`
   display: flex;
@@ -21,37 +19,24 @@ const Battleground = styled.div`
   padding: 24px 0;
 `;
 
-const Interface: FunctionComponent = () => {
-  const [state] = useCoordinator();
-  const { player, enemy } = state;
-
-  return (
-    <Background>
-      <Battleground>
-        <Enemy name={enemy.name} hp={enemy.hp} maxHp={enemy.maxHp} lvl={36} />
-        <Player name={player.name} hp={player.hp} maxHp={player.maxHp} lvl={playerLevel || undefined} />
-      </Battleground>
-
-      <GUI />
-    </Background>
-  );
-};
-
-const Game: FunctionComponent = () => {
+const App: FunctionComponent = () => {
   return (
     <>
       <Normalize />
       <Fonts />
 
-      <Coordinator
-        message={getInitialBattleMessage?.("Abra", true) || "Welcome to rescript !"}
-        player={{ name: playerName, hp: 300 }}
-        enemy={{ name: "Abra", hp: 360 }}
-      >
-        <Interface />
-      </Coordinator>
+      <Game>
+        <Background>
+          <Battleground>
+            <Enemy />
+            <Player />
+          </Battleground>
+
+          <GUI />
+        </Background>
+      </Game>
     </>
   );
 };
 
-export default Game;
+export default App;

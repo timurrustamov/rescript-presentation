@@ -7,6 +7,14 @@ function getInitialBattleMessage(enemyName, isEnemyEvil) {
   return "Beware, a wild " + (enemyName$1 + " appears !");
 }
 
+function getHpAfterDamage(currentHp, damage) {
+  if (damage !== undefined) {
+    return currentHp - damage | 0;
+  } else {
+    return currentHp;
+  }
+}
+
 function getNextCursorPosition(currentAttackIndex, moveType) {
   console.log(currentAttackIndex);
   console.log(moveType);
@@ -23,35 +31,37 @@ function getNextCursorPosition(currentAttackIndex, moveType) {
   }
 }
 
-function getHpAfterDamage(currentHp, damage) {
-  if (damage !== undefined) {
-    return currentHp - damage | 0;
-  } else {
-    return currentHp;
-  }
-}
-
 function getDamageMultiplier(attackType, defenceType) {
-  if (attackType !== 1) {
-    if (attackType !== 0) {
-      return 1.0;
-    } else if (defenceType !== 1) {
-      if (defenceType !== 0) {
+  switch (attackType) {
+    case /* Electric */0 :
+        if (defenceType !== 1) {
+          if (defenceType !== 0) {
+            return 1.0;
+          } else {
+            return 0.5;
+          }
+        } else {
+          return 2.0;
+        }
+    case /* Water */1 :
+        if (defenceType !== 1) {
+          if (defenceType !== 0) {
+            return 1.0;
+          } else {
+            return 2.0;
+          }
+        } else {
+          return 0.5;
+        }
+    case /* Psychic */2 :
+        if (defenceType !== 2) {
+          return 1.0;
+        } else {
+          return 0.5;
+        }
+    case /* Normal */3 :
         return 1.0;
-      } else {
-        return 0.5;
-      }
-    } else {
-      return 2.0;
-    }
-  } else if (defenceType !== 1) {
-    if (defenceType !== 0) {
-      return 1.0;
-    } else {
-      return 2.0;
-    }
-  } else {
-    return 0.5;
+    
   }
 }
 
@@ -62,7 +72,7 @@ var playerLevel = 20;
 exports.playerName = playerName;
 exports.playerLevel = playerLevel;
 exports.getInitialBattleMessage = getInitialBattleMessage;
-exports.getNextCursorPosition = getNextCursorPosition;
 exports.getHpAfterDamage = getHpAfterDamage;
+exports.getNextCursorPosition = getNextCursorPosition;
 exports.getDamageMultiplier = getDamageMultiplier;
 /* No side effect */
