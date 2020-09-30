@@ -31,7 +31,7 @@ const float = keyframes`
   }
 `;
 
-const makeSelectedElevation = (props: ActionProps) => {
+const styleElevation = (props: ActionProps) => {
   const { selected } = props;
   if (selected) {
     return css`
@@ -59,7 +59,7 @@ const Action = styled.button<ActionProps>`
   && ${Typography} {
     font-size: 14px;
   }
-  ${makeSelectedElevation}
+  ${styleElevation}
 `;
 
 export default Action;

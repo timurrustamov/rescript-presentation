@@ -2,7 +2,7 @@ import React, { CSSProperties, FunctionComponent, useEffect } from 'react';
 
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import Abra from 'pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/63.gif';
+import Squirtle from 'pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/7.gif';
 
 import Pokemon from '../Pokemon';
 import HealthBar from './HealthBar';
@@ -29,18 +29,18 @@ const BarContainer = styled.div`
 
 const attacks: Readonly<Attack[]> = [
   {
-    name: 'Bubble',
+    name: 'Water Gun',
     damage: 90,
-    type: 'Normal',
+    type: 'Water',
   },
   {
-    name: 'Fury Swipes',
-    damage: 100,
-    type: 'Normal',
+    name: 'Water Fall',
+    damage: 115,
+    type: 'Water',
   },
   {
     name: 'Pound',
-    damage: 115,
+    damage: 80,
     type: 'Normal',
   },
 ];
@@ -49,17 +49,26 @@ const Enemy: FunctionComponent<EnemyProps> = (props) => {
   const { className, style } = props;
 
   const { name, hp, maxHp } = useSelector((state: State) => state.enemy);
-  const isEnemyTurn = useSelector((state: State) => state.turn === 'ENEMY');
+
   const dispatch = useDispatch();
+  const isEnemyTurn = useSelector((state: State) => state.turn === 'ENEMY');
+  const isInPlay = useSelector((state: State) => state.play);
+  const gameOver = useSelector((state: State) => state.enemy.hp <= 0 || state.player.hp <= 0);
+
+  const attack = attacks[Math.floor(Math.random() * attacks.length)];
 
   useEffect(() => {
-    if (isEnemyTurn) {
-      const attack = attacks[Math.floor(Math.random() * attacks.length)];
-      /** Delay enemy attack, so the message of the attack could be read */
-      const timeout = setTimeout(() => dispatch(enemyAttack(attack)), 3000);
+    if (isEnemyTurn && isInPlay && !gameOver) {
+      const timeout = setTimeout(() => dispatch(enemyAttack(attack)), 5000);
       return () => clearTimeout(timeout);
     }
-  }, [isEnemyTurn]);
+  }, [isEnemyTurn, isInPlay, gameOver]);
+
+  useEffect(() => {
+    if (isEnemyTurn && isInPlay) {
+      dispatch(enemyAttack(attack));
+    }
+  }, [isInPlay]);
 
   return (
     <Wrapper className={className} style={style}>
@@ -68,7 +77,7 @@ const Enemy: FunctionComponent<EnemyProps> = (props) => {
         <HealthBar hp={hp} maxHp={maxHp} />
       </BarContainer>
 
-      <Pokemon hp={hp} src={Abra} />
+      <Pokemon hp={hp} src={Squirtle} />
     </Wrapper>
   );
 };

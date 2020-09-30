@@ -1,7 +1,7 @@
 import { ThunkAction, Action } from '@reduxjs/toolkit';
 
 import { getDamageMultiplier } from '../../Demo.bs';
-import { showMessage, enemyTakeDamage, playerTakeDamage, State } from './store';
+import { showMessage, enemyTakeDamage, playerTakeDamage, State, addEffect } from './store';
 
 export type Attack = {
   name: string;
@@ -42,11 +42,13 @@ export const playerAttack = (attack: Attack): Thunk => {
     const { name, damage, type } = attack;
 
     const multiplier = getDamageMultiplier?.(toResEnumType(type), toResEnumType(enemy.type)) || 1;
+    
     dispatch(showMessage(formatMessage(player.name, name, multiplier)));
-
+    dispatch(addEffect(type));
     dispatch(enemyTakeDamage(damage * multiplier));
   };
 };
+
 export const enemyAttack = (attack: Attack): Thunk => {
   return (dispatch, getState) => {
     const { enemy, player } = getState();
@@ -54,7 +56,7 @@ export const enemyAttack = (attack: Attack): Thunk => {
 
     const multiplier = getDamageMultiplier?.(toResEnumType(type), toResEnumType(player.type)) || 1;
     dispatch(showMessage(formatMessage(enemy.name, name, multiplier)));
-
+    dispatch(addEffect(type));
     dispatch(playerTakeDamage(damage * multiplier));
   };
 };
