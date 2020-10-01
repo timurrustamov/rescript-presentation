@@ -12,9 +12,11 @@ import GUI from './GUI';
 import Game from './Game';
 
 const Battleground = styled.div`
+  flex: 1 0.5 60%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  justify-content: center;
   padding: 24px 0;
 `;
 

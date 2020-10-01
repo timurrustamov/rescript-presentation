@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import Message from './Message';
 import Actions from './Actions';
 import { State } from '../Game/store';
+import GameOver from './GameOver';
 
 export type GUIProps = {
   className?: string;
@@ -19,6 +20,7 @@ const Controls = styled.div`
   flex: 1 1 300px;
   padding: 24px;
   border: 1px solid red;
+  color: white;
   background: linear-gradient(
     95deg,
     rgba(4, 3, 29, 0.7777485994397759) 0%,
@@ -31,7 +33,13 @@ const GUI: FunctionComponent<GUIProps> = (props) => {
   const { className, style } = props;
 
   const message = useSelector((state: State) => state.message);
+  const isGameOver = useSelector((state: State) => state.enemy.hp <= 0 || state.player.hp <= 0);
 
+  if (isGameOver) {
+    return <Controls className={className} style={style}>
+      <GameOver />
+    </Controls>;
+  }
   if (message) {
     return (
       <Controls className={className} style={style}>
@@ -39,7 +47,6 @@ const GUI: FunctionComponent<GUIProps> = (props) => {
       </Controls>
     );
   }
-
   return (
     <Controls className={className} style={style}>
       <Actions />

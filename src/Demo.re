@@ -1,7 +1,7 @@
 /*
  * Please name our Pokémon 👍 !
  *
- * Declare a variable playerName
+ * Declare a string variable playerName
  */
 let playerName = "Pikachu";
 
@@ -31,7 +31,7 @@ let playerName = "Pikachu";
  *
  * Define a playerLevel int variable
  */
-let playerLevel = 20.0 *. 1.5;
+let playerLevel = 20.0 *. 2.0;
 
 //............................
 //............................
@@ -56,6 +56,8 @@ let playerLevel = 20.0 *. 1.5;
 
 /*
  * We need to display a start message now 🙈
+ * > Beware, sometimes our enemy is just plain evil and we should
+ *  display that... 🦹‍♀️
  *
  * Please define getInitialBattleMessage with following signature ->
  *  (enemyName: string, isEnemyEvil: boolean): string
@@ -96,7 +98,7 @@ let getInitialBattleMessage = (enemyName, isEnemyEvil) => {
  * How come we can not choose an attack ?
  * We need to implement a way to move our cursor 🤔
  *
- * Our possibilities are: Up, Right, Down and Left
+ * Our possibilities are: Up 👆, Right 👉, Down 👇 and Left 👈
  *
  * Implement getNextCursorPosition function with following signature
  *  (currentAttackIndex: int, moveType: 'variant): int
@@ -141,7 +143,7 @@ let getNextCursorPosition = (currentAttackIndex, moveType) => {
 /*
  * Whaaat, attacks do no damage ?!!
  * It's time to calculate how damage works 💪
- * > Well, sometimes the attack misses you know ;)
+ * > Well, sometimes the attack misses you know 🙈
  *
  * Define getHpAfterDamage function with following signature ->
  *  (~currentHp: int, ~damage: option<int>): number
@@ -185,14 +187,52 @@ type pokemonType =
   | Electric
   | Water
   | Psychic
-  | Normal
+  | Normal;
 
 let getDamageMultiplier = (attackType, defenceType) => {
   let sametype = attackType == defenceType;
 
   switch (attackType, defenceType, sametype) {
-    | (Electric, Water, _) => 2.0
-    | (_, _, true) => 0.5
-    | (_, _, false) => 1.0
-  }
-}
+  | (Electric, Water, _) => 2.0
+  | (_, _, true) => 0.5
+  | (_, _, false) => 1.0
+  };
+};
+
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+//............................
+
+/*
+ * We won ! Great job everybody !
+ * Now let's display an "end of game message" using React ⚛
+ *
+ * Please define GameOver React component (in a module !) with following signature
+ *  (~className: string, ~restart: (ReactEvent.mouse.t) => unit, ~children: React.element): React.element
+ */
+
+module GameOver = {
+  [@react.component]
+  let make = (~className, ~restart, ~children) => {
+    <div className>
+      <span> children </span>
+      <button onClick=restart> "Restart"->React.string </button>
+    </div>;
+  };
+};
