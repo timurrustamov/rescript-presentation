@@ -1,5 +1,3 @@
-import { FunctionComponent } from 'react';
-
 export const playerName: undefined | string;
 
 export const playerLevel: undefined | number;
@@ -13,11 +11,3 @@ export const getNextCursorPosition: undefined | ((currentAttackIndex: number, mo
 export const getDamageMultiplier:
   | undefined
   | ((attackType: 0 | 1 | 2 | 3, defenceType: 0 | 1 | 2 | 3) => number);
-
-export type GameOverProps = {
-  className?: string;
-  restart?: () => void;
-};
-export const GameOver: undefined | {
-  make?: FunctionComponent<GameOverProps>
-};

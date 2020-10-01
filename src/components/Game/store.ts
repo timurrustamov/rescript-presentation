@@ -35,7 +35,6 @@ export const addEffect = createAction<State['effect']>('ADD_EFFECT');
 export const clearEffect = createAction('CLEAR_EFFECT');
 export const playerTakeDamage = createAction<number>('PLAYER_TAKE_DAMAGE');
 export const enemyTakeDamage = createAction<number>('ENEMY_TAKE_DAMAGE');
-export const restart = createAction('RESTART');
 
 const reducer = createReducer(initialState, (builder) => {
   const getActorAfterDamage = (actor: Actor, damage = 0) => {
@@ -75,8 +74,7 @@ const reducer = createReducer(initialState, (builder) => {
         turn: 'ENEMY',
         enemy: getActorAfterDamage(state.enemy, action.payload),
       };
-    })
-    .addCase(restart, () => initialState);
+    });
 });
 
 const store = configureStore({ reducer });

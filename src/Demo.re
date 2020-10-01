@@ -31,7 +31,7 @@ let playerName = "Pikachu";
  *
  * Define a playerLevel int variable
  */
-let playerLevel = 20.0 *. 2.0;
+let playerLevel = 20 * 2;
 
 //............................
 //............................
@@ -58,6 +58,7 @@ let playerLevel = 20.0 *. 2.0;
  * We need to display a start message now 🙈
  * > Beware, sometimes our enemy is just plain evil and we should
  *  display that... 🦹‍♀️
+ * > A typical message is "Beware ! A wild * appears !"
  *
  * Please define getInitialBattleMessage with following signature ->
  *  (enemyName: string, isEnemyEvil: boolean): string
@@ -70,7 +71,7 @@ let getInitialBattleMessage = (enemyName, isEnemyEvil) => {
       enemyName;
     };
 
-  "A wild " ++ enemyName ++ " appeared !";
+  "Beware ! A wild " ++ enemyName ++ " appears !";
 };
 
 //............................
@@ -190,49 +191,11 @@ type pokemonType =
   | Normal;
 
 let getDamageMultiplier = (attackType, defenceType) => {
-  let sametype = attackType == defenceType;
+  let isSameType = attackType === defenceType;
 
-  switch (attackType, defenceType, sametype) {
-  | (Electric, Water, _) => 2.0
+  switch (attackType, defenceType, isSameType) {
+  | (Electric, Water, false) => 2.0
   | (_, _, true) => 0.5
-  | (_, _, false) => 1.0
-  };
-};
-
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-//............................
-
-/*
- * We won ! Great job everybody !
- * Now let's display an "end of game message" using React ⚛
- *
- * Please define GameOver React component (in a module !) with following signature
- *  (~className: string, ~restart: (ReactEvent.mouse.t) => unit, ~children: React.element): React.element
- */
-
-module GameOver = {
-  [@react.component]
-  let make = (~className, ~restart, ~children) => {
-    <div className>
-      <span> children </span>
-      <button onClick=restart> "Restart"->React.string </button>
-    </div>;
+  | (_, _, _) => 1.0
   };
 };
